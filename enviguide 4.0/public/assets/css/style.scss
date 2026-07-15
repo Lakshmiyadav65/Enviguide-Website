@@ -3216,9 +3216,21 @@ header {
     100% { transform: scale(2.6); opacity: 0; }
 }
 
-@keyframes ihmWaterFlow {
-    from { stroke-dashoffset: 0; }
-    to { stroke-dashoffset: -40; }
+// The wave paths span 0..1800 with a 180-unit period, so shifting by exactly
+// -900 (five periods) loops seamlessly.
+@keyframes ihmWaveShift {
+    from { transform: translateX(0); }
+    to { transform: translateX(-900px); }
+}
+
+@keyframes ihmBob {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-3px) rotate(-0.25deg); }
+}
+
+@keyframes ihmSail {
+    from { transform: translateX(-140px); }
+    to { transform: translateX(100vw); }
 }
 
 .ihmpage-mainsection {
@@ -3300,6 +3312,90 @@ header {
     .ihmpage-herobody {
         position: relative;
         z-index: 1;
+    }
+
+    // Drifting fleet along the foot of the dark hero bands.
+    .ihmpage-herofleet {
+        position: absolute;
+        left: 0px;
+        right: 0px;
+        bottom: 0px;
+        height: 116px;
+        overflow: hidden;
+        pointer-events: none;
+        z-index: 0;
+        @include xsm {
+            height: 84px;
+        }
+        @include sm {
+            height: 84px;
+        }
+        .ihmpage-mini {
+            position: absolute;
+            left: 0px;
+            fill: none;
+            stroke: #9afb00;
+            stroke-width: 1.5;
+            stroke-linejoin: round;
+            animation-name: ihmSail;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+        }
+        // The water surface sits ~34px above the fleet's bottom edge (the wave
+        // crest is at y=10 of the 44px .ihmpage-herowaves band). Each hull bottom
+        // is parked just under it so the ships sit IN the water, not on top of it.
+        .ihmpage-mini1 {
+            width: 84px;
+            bottom: 29px;
+            opacity: 0.45;
+            animation-duration: 34s;
+            animation-delay: -4s;
+        }
+        .ihmpage-mini2 {
+            width: 56px;
+            bottom: 33px;
+            opacity: 0.26;
+            animation-duration: 52s;
+            animation-delay: -26s;
+        }
+        .ihmpage-mini3 {
+            width: 112px;
+            bottom: 24px;
+            opacity: 0.62;
+            animation-duration: 26s;
+            animation-delay: -14s;
+        }
+        .ihmpage-herowaves {
+            position: absolute;
+            left: 0px;
+            right: 0px;
+            bottom: 0px;
+            width: 100%;
+            height: 44px;
+            .ihmpage-herowave,
+            .ihmpage-herocrest {
+                animation-name: ihmWaveShift;
+                animation-timing-function: linear;
+                animation-iteration-count: infinite;
+            }
+            .ihmpage-herowave1 {
+                fill: url(#ihmHeroSea);
+                animation-duration: 18s;
+            }
+            .ihmpage-herocrest {
+                fill: none;
+                stroke-width: 1.5;
+                &.ihmpage-herocrest1 {
+                    stroke: rgba(154, 251, 0, 0.4);
+                    animation-duration: 18s;
+                }
+                &.ihmpage-herocrest2 {
+                    stroke: rgba(154, 251, 0, 0.16);
+                    animation-duration: 28s;
+                    animation-direction: reverse;
+                }
+            }
+        }
     }
 
     // ---------- 1. hero ----------
@@ -3810,22 +3906,19 @@ header {
             }
         }
         .ihmpage-shipwrap {
-            // A ship profile is inherently wide. Squashed to phone width the pins
-            // render ~4px across and the numbers are unreadable, so below the md
-            // breakpoint the diagram scrolls inside its own container instead.
+            // A ship profile is inherently wide, and this viewBox is 1600 so the sea
+            // can reach both screen edges. Below ~1300px the whole thing scales down
+            // far enough that the pins fall under ~7px and the numbers stop being
+            // readable, so the diagram scrolls inside its own container instead.
+            // A raw query is used rather than the xsm/sm mixins because the cutoff is
+            // driven by pin legibility, not by the site's layout breakpoints.
+            // 1460px holds pins at ~8px, matching how they read at 1440.
             .ihmpage-shipscroll {
-                @include xsm {
+                @media (max-width: 1299.98px) {
                     overflow-x: auto;
                     -webkit-overflow-scrolling: touch;
                     .ihmpage-shipsvg {
-                        min-width: 820px;
-                    }
-                }
-                @include sm {
-                    overflow-x: auto;
-                    -webkit-overflow-scrolling: touch;
-                    .ihmpage-shipsvg {
-                        min-width: 820px;
+                        min-width: 1460px;
                     }
                 }
             }
@@ -3837,10 +3930,7 @@ header {
                 margin: 0px;
                 margin-top: 12px;
                 text-align: center;
-                @include xsm {
-                    display: block;
-                }
-                @include sm {
+                @media (max-width: 1299.98px) {
                     display: block;
                 }
             }
@@ -3848,7 +3938,47 @@ header {
                 display: block;
                 width: 100%;
                 height: auto;
-                overflow: visible;
+                // hidden, not visible: the wave paths deliberately run to x=1800
+                // so they can loop, and must be clipped to the viewBox.
+                overflow: hidden;
+            }
+            .ihmpage-shipfloat {
+                animation: ihmBob 7s ease-in-out infinite;
+                transform-origin: 810px 240px; // ship centre in the 1600 viewBox
+            }
+            .ihmpage-seaback {
+                fill: rgba(154, 251, 0, 0.03);
+            }
+            .ihmpage-sea {
+                .ihmpage-wavebody,
+                .ihmpage-crest {
+                    animation-name: ihmWaveShift;
+                    animation-timing-function: linear;
+                    animation-iteration-count: infinite;
+                }
+                // One gradient body reads as depth; stacked flat fills read as a
+                // solid slab, which is why the crests are strokes, not more fills.
+                .ihmpage-wavebody {
+                    fill: url(#ihmSeaFill);
+                    animation-duration: 14s;
+                }
+                .ihmpage-crest {
+                    fill: none;
+                    stroke-width: 1.5;
+                    &.ihmpage-crest1 {
+                        stroke: rgba(154, 251, 0, 0.55);
+                        animation-duration: 14s;
+                    }
+                    &.ihmpage-crest2 {
+                        stroke: rgba(154, 251, 0, 0.25);
+                        animation-duration: 22s;
+                        animation-direction: reverse;
+                    }
+                    &.ihmpage-crest3 {
+                        stroke: rgba(154, 251, 0, 0.14);
+                        animation-duration: 30s;
+                    }
+                }
             }
             .ihmpage-hull {
                 stroke: #9afb00;
@@ -3861,11 +3991,6 @@ header {
             .ihmpage-decknline {
                 stroke: #333333;
                 stroke-width: 1;
-            }
-            .ihmpage-waterline {
-                stroke: rgba(154, 251, 0, 0.45);
-                stroke-width: 2;
-                animation: ihmWaterFlow 2.4s linear infinite;
             }
             .ihmpage-super {
                 fill: #141414;
@@ -3905,7 +4030,7 @@ header {
                 }
             }
             .ihmpage-legend {
-                margin-top: 30px;
+                margin-top: 36px;
                 .ihmpage-legenditem {
                     display: flex;
                     align-items: flex-start;
@@ -4232,6 +4357,19 @@ header {
         }
         .ihmpage-pinpulse {
             opacity: 0 !important;
+        }
+        // The fleet's keyframes end off-screen right, so killing the animation
+        // alone would leave an empty hero. Park them at readable positions.
+        .ihmpage-herofleet {
+            .ihmpage-mini1 {
+                transform: translateX(14vw) !important;
+            }
+            .ihmpage-mini2 {
+                transform: translateX(52vw) !important;
+            }
+            .ihmpage-mini3 {
+                transform: translateX(76vw) !important;
+            }
         }
     }
 }

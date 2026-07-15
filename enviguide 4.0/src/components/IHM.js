@@ -38,12 +38,13 @@ const STEPS = [
 
 // Positions are inside the hull path drawn below. Anti fouling belongs on the
 // underwater hull, not the deck, so pin 4 sits beneath the waterline (y=250).
+// x values carry the same +350 offset as the hull, centring it in the 1600 viewBox.
 const PINS = [
-    { id: 1, x: 172, y: 148, label: "Accommodation", sub: "PCBs in cable insulation" },
-    { id: 2, x: 214, y: 232, label: "Engine room", sub: "Asbestos in gaskets and lagging" },
-    { id: 3, x: 452, y: 214, label: "Cargo hold", sub: "Coatings and preservatives" },
-    { id: 4, x: 600, y: 266, label: "Underwater hull", sub: "Anti fouling systems" },
-    { id: 5, x: 764, y: 254, label: "Bow thruster", sub: "Heavy metals in components" },
+    { id: 1, x: 522, y: 148, label: "Accommodation", sub: "PCBs in cable insulation" },
+    { id: 2, x: 564, y: 232, label: "Engine room", sub: "Asbestos in gaskets and lagging" },
+    { id: 3, x: 802, y: 214, label: "Cargo hold", sub: "Coatings and preservatives" },
+    { id: 4, x: 950, y: 266, label: "Underwater hull", sub: "Anti fouling systems" },
+    { id: 5, x: 1114, y: 254, label: "Bow thruster", sub: "Heavy metals in components" },
 ];
 
 const PARTS = [
@@ -57,6 +58,37 @@ const SUBSTANCES = [
     "Cybutryne", "Organotin", "Cadmium", "Lead", "Mercury", "Hexavalent chromium",
     "Brominated flame retardants", "Radioactive substances",
 ];
+
+// Seamless waves. One period is 180 units. The CSS shifts every wave by exactly
+// -900 (five periods), so a path must span at least viewBoxWidth + 900 for the
+// loop to be seamless. `reps` sets that span: total width = 90 * (1 + reps).
+const ripple = (y, amp, reps) => {
+    let d = `M0,${y} q45,${-amp} 90,0`;
+    for (let i = 0; i < reps; i++) d += " t90,0";
+    return d;
+};
+// Filled body of water: the same ripple, closed down to `bottom`.
+const wave = (y, amp, bottom, reps) => `${ripple(y, amp, reps)} L${90 * (1 + reps)},${bottom} L0,${bottom} Z`;
+// Open path, stroked, to read as a wave crest.
+const crest = (y, amp, reps) => ripple(y, amp, reps);
+
+// Ship diagram is a 1600-wide full-bleed viewBox so the sea reaches both screen
+// edges. Waves must therefore span 1600 + 900 = 2500 -> reps 27 gives 2520.
+const SEA_REPS = 27;
+// The hero band is 900 wide, so 900 + 900 = 1800 -> reps 19.
+const HERO_REPS = 19;
+
+// Small vessel silhouette used for the drifting hero fleet.
+const MiniShip = ({ className }) => (
+    <svg className={className} viewBox="0 0 64 26" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+        <path d="M1,15 L63,15 L56,24 L8,24 Z" />
+        <rect x="7" y="7" width="13" height="8" />
+        <rect x="11" y="2" width="4" height="5" />
+        <rect x="24" y="10" width="11" height="5" />
+        <rect x="37" y="10" width="11" height="5" />
+        <rect x="50" y="10" width="8" height="5" />
+    </svg>
+);
 
 const WHO = [
     { head: "Shipowners", txt: "You carry the obligation and the certificate. You need to know the inventory is current across the fleet, not just filed." },
@@ -78,6 +110,22 @@ const IHM = () => {
                 <div className="ihmpage-section1">
                     <span className="ihmpage-herogrid" aria-hidden="true"></span>
                     <span className="ihmpage-heroglow" aria-hidden="true"></span>
+                    <span className="ihmpage-herofleet" aria-hidden="true">
+                        <MiniShip className="ihmpage-mini ihmpage-mini1" />
+                        <MiniShip className="ihmpage-mini ihmpage-mini2" />
+                        <MiniShip className="ihmpage-mini ihmpage-mini3" />
+                        <svg className="ihmpage-herowaves" viewBox="0 0 900 44" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                            <defs>
+                                <linearGradient id="ihmHeroSea" gradientUnits="userSpaceOnUse" x1="0" y1="6" x2="0" y2="44">
+                                    <stop offset="0%" stopColor="#9afb00" stopOpacity="0.20" />
+                                    <stop offset="100%" stopColor="#9afb00" stopOpacity="0.02" />
+                                </linearGradient>
+                            </defs>
+                            <path className="ihmpage-herowave ihmpage-herowave1" d={wave(10, 4, 44, HERO_REPS)} />
+                            <path className="ihmpage-herocrest ihmpage-herocrest1" vectorEffect="non-scaling-stroke" d={crest(10, 4, HERO_REPS)} />
+                            <path className="ihmpage-herocrest ihmpage-herocrest2" vectorEffect="non-scaling-stroke" d={crest(18, 3, HERO_REPS)} />
+                        </svg>
+                    </span>
                     <div className="container ihmpage-herobody">
                         <div className="row justify-content-center">
                             <div className="col-md-9">
@@ -140,7 +188,7 @@ const IHM = () => {
                         </div>
                         <div className="row gy-4 align-items-stretch">
                             <div className="col-lg-6">
-                                <div className="ihmpage-cmp ihmpage-cmpbad" data-aos="fade-right" data-aos-duration="800" data-aos-delay="30">
+                                <div className="ihmpage-cmp ihmpage-cmpbad" data-aos="fade-up" data-aos-duration="800" data-aos-delay="30">
                                     <p className="ihmpage-cmphead">Done by hand</p>
                                     <p className="ihmpage-cmprow">A spreadsheet of purchase order lines, filtered by eye</p>
                                     <p className="ihmpage-cmprow">One long email thread per vendor, or worse, one shared thread</p>
@@ -150,7 +198,7 @@ const IHM = () => {
                                 </div>
                             </div>
                             <div className="col-lg-6">
-                                <div className="ihmpage-cmp ihmpage-cmpgood" data-aos="fade-left" data-aos-duration="800" data-aos-delay="30">
+                                <div className="ihmpage-cmp ihmpage-cmpgood" data-aos="fade-up" data-aos-duration="800" data-aos-delay="30">
                                     <p className="ihmpage-cmphead">With Enviguide IHM</p>
                                     <p className="ihmpage-cmprow">The purchase order you already raise is the input</p>
                                     <p className="ihmpage-cmprow">One request, split automatically into a private link per vendor</p>
@@ -195,45 +243,56 @@ const IHM = () => {
                                 <p className="ihmpage-section5sub">Every confirmed hazardous material is tied to a physical location on the vessel, across Parts I, II and III. That is the difference between a list and an inventory.</p>
                             </div>
                         </div>
+                    </div>
 
-                        <div className="ihmpage-shipwrap" data-aos="fade-up" data-aos-duration="800" data-aos-delay="30">
-                            <div className="ihmpage-shipscroll">
-                            <svg className="ihmpage-shipsvg" viewBox="0 0 900 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Schematic side profile of a vessel showing where hazardous materials are typically located: accommodation, engine room, cargo hold, underwater hull, and bow thruster.">
+                    {/* Deliberately outside .container: the sea has to reach both screen
+                        edges, otherwise it renders as a green box floating mid-page. */}
+                    <div className="ihmpage-shipwrap" data-aos="fade-up" data-aos-duration="800" data-aos-delay="30">
+                        <div className="ihmpage-shipscroll">
+                            <svg className="ihmpage-shipsvg" viewBox="0 0 1600 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Schematic side profile of a vessel showing where hazardous materials are typically located: accommodation, engine room, cargo hold, underwater hull, and bow thruster.">
                                 <defs>
                                     <linearGradient id="ihmHullFill" x1="0" y1="0" x2="0" y2="1">
                                         <stop offset="0%" stopColor="#1c1c1c" />
                                         <stop offset="100%" stopColor="#0a0a0a" />
                                     </linearGradient>
+                                    {/* userSpaceOnUse: the wave path's bbox runs far below the
+                                        visible sea, so a bbox-relative gradient would be wrong. */}
+                                    <linearGradient id="ihmSeaFill" gradientUnits="userSpaceOnUse" x1="0" y1="246" x2="0" y2="340">
+                                        <stop offset="0%" stopColor="#9afb00" stopOpacity="0.22" />
+                                        <stop offset="100%" stopColor="#9afb00" stopOpacity="0.02" />
+                                    </linearGradient>
                                 </defs>
 
-                                {/* waterline */}
-                                <line className="ihmpage-waterline" x1="20" y1="250" x2="880" y2="250" strokeDasharray="10 10" />
+                                {/* sea behind the hull, so the horizon reads across the frame */}
+                                <rect className="ihmpage-seaback" x="0" y="250" width="1600" height="90" />
 
+                                {/* Ship and its pins bob as ONE group so they never desync. */}
+                                <g className="ihmpage-shipfloat">
                                 {/* hull */}
                                 <path className="ihmpage-hull" fill="url(#ihmHullFill)"
-                                    d="M70,190 L70,258 Q72,282 106,282 L700,282 Q782,280 822,248 L858,190 Z" />
+                                    d="M420,190 L420,258 Q422,282 456,282 L1050,282 Q1132,280 1172,248 L1208,190 Z" />
 
                                 {/* internal deck lines */}
-                                <line className="ihmpage-decknline" x1="72" y1="218" x2="838" y2="218" />
-                                <line className="ihmpage-decknline" x1="80" y1="250" x2="812" y2="250" />
+                                <line className="ihmpage-decknline" x1="422" y1="218" x2="1188" y2="218" />
+                                <line className="ihmpage-decknline" x1="430" y1="250" x2="1162" y2="250" />
 
                                 {/* main deck */}
-                                <line className="ihmpage-deck" x1="70" y1="190" x2="858" y2="190" />
+                                <line className="ihmpage-deck" x1="420" y1="190" x2="1208" y2="190" />
 
                                 {/* superstructure */}
-                                <rect className="ihmpage-super" x="98" y="112" width="152" height="78" rx="4" />
-                                <rect className="ihmpage-window" x="112" y="126" width="26" height="12" rx="2" />
-                                <rect className="ihmpage-window" x="146" y="126" width="26" height="12" rx="2" />
-                                <rect className="ihmpage-window" x="180" y="126" width="26" height="12" rx="2" />
-                                <rect className="ihmpage-window" x="214" y="126" width="26" height="12" rx="2" />
+                                <rect className="ihmpage-super" x="448" y="112" width="152" height="78" rx="4" />
+                                <rect className="ihmpage-window" x="462" y="126" width="26" height="12" rx="2" />
+                                <rect className="ihmpage-window" x="496" y="126" width="26" height="12" rx="2" />
+                                <rect className="ihmpage-window" x="530" y="126" width="26" height="12" rx="2" />
+                                <rect className="ihmpage-window" x="564" y="126" width="26" height="12" rx="2" />
                                 {/* funnel */}
-                                <path className="ihmpage-funnel" d="M156,112 L162,70 L200,70 L206,112 Z" />
+                                <path className="ihmpage-funnel" d="M506,112 L512,70 L550,70 L556,112 Z" />
 
                                 {/* cargo hatches */}
-                                <rect className="ihmpage-hatch" x="280" y="176" width="120" height="14" rx="2" />
-                                <rect className="ihmpage-hatch" x="418" y="176" width="120" height="14" rx="2" />
-                                <rect className="ihmpage-hatch" x="556" y="176" width="120" height="14" rx="2" />
-                                <rect className="ihmpage-hatch" x="694" y="176" width="86" height="14" rx="2" />
+                                <rect className="ihmpage-hatch" x="630" y="176" width="120" height="14" rx="2" />
+                                <rect className="ihmpage-hatch" x="768" y="176" width="120" height="14" rx="2" />
+                                <rect className="ihmpage-hatch" x="906" y="176" width="120" height="14" rx="2" />
+                                <rect className="ihmpage-hatch" x="1044" y="176" width="86" height="14" rx="2" />
 
                                 {/* hazard pins */}
                                 {PINS.map((p, i) => (
@@ -243,10 +302,21 @@ const IHM = () => {
                                         <text className="ihmpage-pintext" x={p.x} y={p.y + 4} textAnchor="middle">{p.id}</text>
                                     </g>
                                 ))}
-                            </svg>
-                            </div>
-                            <p className="ihmpage-swipe">Swipe the diagram to explore</p>
+                                </g>
 
+                                {/* Sea drawn LAST and translucent: the hull below the waterline reads as
+                                    submerged, and pins 4 and 5 correctly appear to sit underwater. */}
+                                <g className="ihmpage-sea">
+                                    <path className="ihmpage-wavebody" d={wave(252, 7, 340, SEA_REPS)} />
+                                    <path className="ihmpage-crest ihmpage-crest1" d={crest(252, 7, SEA_REPS)} />
+                                    <path className="ihmpage-crest ihmpage-crest2" d={crest(260, 5, SEA_REPS)} />
+                                    <path className="ihmpage-crest ihmpage-crest3" d={crest(268, 4, SEA_REPS)} />
+                                </g>
+                            </svg>
+                        </div>
+
+                        <div className="container">
+                            <p className="ihmpage-swipe">Swipe the diagram to explore</p>
                             <div className="row gy-3 ihmpage-legend">
                                 {PINS.map((p) => (
                                     <div className="col-md-6 col-lg-4" key={p.id}>

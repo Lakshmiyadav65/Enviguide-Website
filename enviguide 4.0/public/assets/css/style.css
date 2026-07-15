@@ -3740,12 +3740,28 @@ header {
     opacity: 0;
   }
 }
-@keyframes ihmWaterFlow {
+@keyframes ihmWaveShift {
   from {
-    stroke-dashoffset: 0;
+    transform: translateX(0);
   }
   to {
-    stroke-dashoffset: -40;
+    transform: translateX(-900px);
+  }
+}
+@keyframes ihmBob {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-3px) rotate(-0.25deg);
+  }
+}
+@keyframes ihmSail {
+  from {
+    transform: translateX(-140px);
+  }
+  to {
+    transform: translateX(100vw);
   }
 }
 .ihmpage-mainsection .ihmpage-bt {
@@ -3833,6 +3849,88 @@ header {
 .ihmpage-mainsection .ihmpage-herobody {
   position: relative;
   z-index: 1;
+}
+.ihmpage-mainsection .ihmpage-herofleet {
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  height: 116px;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+@media (max-width: 575.98px) {
+  .ihmpage-mainsection .ihmpage-herofleet {
+    height: 84px;
+  }
+}
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .ihmpage-mainsection .ihmpage-herofleet {
+    height: 84px;
+  }
+}
+.ihmpage-mainsection .ihmpage-herofleet .ihmpage-mini {
+  position: absolute;
+  left: 0px;
+  fill: none;
+  stroke: #9afb00;
+  stroke-width: 1.5;
+  stroke-linejoin: round;
+  animation-name: ihmSail;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+.ihmpage-mainsection .ihmpage-herofleet .ihmpage-mini1 {
+  width: 84px;
+  bottom: 29px;
+  opacity: 0.45;
+  animation-duration: 34s;
+  animation-delay: -4s;
+}
+.ihmpage-mainsection .ihmpage-herofleet .ihmpage-mini2 {
+  width: 56px;
+  bottom: 33px;
+  opacity: 0.26;
+  animation-duration: 52s;
+  animation-delay: -26s;
+}
+.ihmpage-mainsection .ihmpage-herofleet .ihmpage-mini3 {
+  width: 112px;
+  bottom: 24px;
+  opacity: 0.62;
+  animation-duration: 26s;
+  animation-delay: -14s;
+}
+.ihmpage-mainsection .ihmpage-herofleet .ihmpage-herowaves {
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  width: 100%;
+  height: 44px;
+}
+.ihmpage-mainsection .ihmpage-herofleet .ihmpage-herowaves .ihmpage-herocrest {
+  animation-name: ihmWaveShift;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+.ihmpage-mainsection .ihmpage-herofleet .ihmpage-herowaves .ihmpage-herowave1 {
+  fill: url(#ihmHeroSea);
+  animation-duration: 18s;
+}
+.ihmpage-mainsection .ihmpage-herofleet .ihmpage-herowaves .ihmpage-herocrest {
+  fill: none;
+  stroke-width: 1.5;
+}
+.ihmpage-mainsection .ihmpage-herofleet .ihmpage-herowaves .ihmpage-herocrest.ihmpage-herocrest1 {
+  stroke: rgba(154, 251, 0, 0.4);
+  animation-duration: 18s;
+}
+.ihmpage-mainsection .ihmpage-herofleet .ihmpage-herowaves .ihmpage-herocrest.ihmpage-herocrest2 {
+  stroke: rgba(154, 251, 0, 0.16);
+  animation-duration: 28s;
+  animation-direction: reverse;
 }
 .ihmpage-mainsection .ihmpage-section1 {
   padding: 130px 0% 5% 0%;
@@ -4442,22 +4540,13 @@ header {
     margin-bottom: 24px;
   }
 }
-@media (max-width: 575.98px) {
+@media (max-width: 1299.98px) {
   .ihmpage-mainsection .ihmpage-section5 .ihmpage-shipwrap .ihmpage-shipscroll {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
   }
   .ihmpage-mainsection .ihmpage-section5 .ihmpage-shipwrap .ihmpage-shipscroll .ihmpage-shipsvg {
-    min-width: 820px;
-  }
-}
-@media (min-width: 576px) and (max-width: 767.98px) {
-  .ihmpage-mainsection .ihmpage-section5 .ihmpage-shipwrap .ihmpage-shipscroll {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-  .ihmpage-mainsection .ihmpage-section5 .ihmpage-shipwrap .ihmpage-shipscroll .ihmpage-shipsvg {
-    min-width: 820px;
+    min-width: 1460px;
   }
 }
 .ihmpage-mainsection .ihmpage-section5 .ihmpage-shipwrap .ihmpage-swipe {
@@ -4469,12 +4558,7 @@ header {
   margin-top: 12px;
   text-align: center;
 }
-@media (max-width: 575.98px) {
-  .ihmpage-mainsection .ihmpage-section5 .ihmpage-shipwrap .ihmpage-swipe {
-    display: block;
-  }
-}
-@media (min-width: 576px) and (max-width: 767.98px) {
+@media (max-width: 1299.98px) {
   .ihmpage-mainsection .ihmpage-section5 .ihmpage-shipwrap .ihmpage-swipe {
     display: block;
   }
@@ -4483,7 +4567,40 @@ header {
   display: block;
   width: 100%;
   height: auto;
-  overflow: visible;
+  overflow: hidden;
+}
+.ihmpage-mainsection .ihmpage-section5 .ihmpage-shipwrap .ihmpage-shipfloat {
+  animation: ihmBob 7s ease-in-out infinite;
+  transform-origin: 810px 240px;
+}
+.ihmpage-mainsection .ihmpage-section5 .ihmpage-shipwrap .ihmpage-seaback {
+  fill: rgba(154, 251, 0, 0.03);
+}
+.ihmpage-mainsection .ihmpage-section5 .ihmpage-shipwrap .ihmpage-sea .ihmpage-crest {
+  animation-name: ihmWaveShift;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+.ihmpage-mainsection .ihmpage-section5 .ihmpage-shipwrap .ihmpage-sea .ihmpage-wavebody {
+  fill: url(#ihmSeaFill);
+  animation-duration: 14s;
+}
+.ihmpage-mainsection .ihmpage-section5 .ihmpage-shipwrap .ihmpage-sea .ihmpage-crest {
+  fill: none;
+  stroke-width: 1.5;
+}
+.ihmpage-mainsection .ihmpage-section5 .ihmpage-shipwrap .ihmpage-sea .ihmpage-crest.ihmpage-crest1 {
+  stroke: rgba(154, 251, 0, 0.55);
+  animation-duration: 14s;
+}
+.ihmpage-mainsection .ihmpage-section5 .ihmpage-shipwrap .ihmpage-sea .ihmpage-crest.ihmpage-crest2 {
+  stroke: rgba(154, 251, 0, 0.25);
+  animation-duration: 22s;
+  animation-direction: reverse;
+}
+.ihmpage-mainsection .ihmpage-section5 .ihmpage-shipwrap .ihmpage-sea .ihmpage-crest.ihmpage-crest3 {
+  stroke: rgba(154, 251, 0, 0.14);
+  animation-duration: 30s;
 }
 .ihmpage-mainsection .ihmpage-section5 .ihmpage-shipwrap .ihmpage-hull {
   stroke: #9afb00;
@@ -4496,11 +4613,6 @@ header {
 .ihmpage-mainsection .ihmpage-section5 .ihmpage-shipwrap .ihmpage-decknline {
   stroke: #333333;
   stroke-width: 1;
-}
-.ihmpage-mainsection .ihmpage-section5 .ihmpage-shipwrap .ihmpage-waterline {
-  stroke: rgba(154, 251, 0, 0.45);
-  stroke-width: 2;
-  animation: ihmWaterFlow 2.4s linear infinite;
 }
 .ihmpage-mainsection .ihmpage-section5 .ihmpage-shipwrap .ihmpage-super {
   fill: #141414;
@@ -4538,7 +4650,7 @@ header {
   font-size: 11px;
 }
 .ihmpage-mainsection .ihmpage-section5 .ihmpage-shipwrap .ihmpage-legend {
-  margin-top: 30px;
+  margin-top: 36px;
 }
 .ihmpage-mainsection .ihmpage-section5 .ihmpage-shipwrap .ihmpage-legend .ihmpage-legenditem {
   display: flex;
@@ -4913,6 +5025,15 @@ header {
   }
   .ihmpage-mainsection .ihmpage-pinpulse {
     opacity: 0 !important;
+  }
+  .ihmpage-mainsection .ihmpage-herofleet .ihmpage-mini1 {
+    transform: translateX(14vw) !important;
+  }
+  .ihmpage-mainsection .ihmpage-herofleet .ihmpage-mini2 {
+    transform: translateX(52vw) !important;
+  }
+  .ihmpage-mainsection .ihmpage-herofleet .ihmpage-mini3 {
+    transform: translateX(76vw) !important;
   }
 }
 
