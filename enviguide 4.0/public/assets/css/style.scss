@@ -860,6 +860,53 @@ header {
                 text-align: center;
             }
         }
+        // Same shared vessel art as /IHM, restyled for this light band. The lime
+        // stroke used on the dark bands would be near invisible on #f4f4f4, so the
+        // outlines go black and the lime is kept for the cargo accents only.
+        .ihm-fleet {
+            margin-bottom: 40px;
+            @include xsm {
+                margin-bottom: 24px;
+            }
+            @include sm {
+                margin-bottom: 24px;
+            }
+            .ihmpage-vsvg {
+                display: block;
+                width: 100%;
+                height: auto;
+            }
+            .ihmpage-vhull,
+            .ihmpage-vsuper,
+            .ihmpage-vfunnel,
+            .ihmpage-vtank {
+                fill: #ffffff;
+                stroke: #000000;
+                stroke-width: 1.6;
+                stroke-linejoin: round;
+            }
+            .ihmpage-vdeck {
+                stroke: #000000;
+                stroke-width: 1.6;
+            }
+            .ihmpage-vline {
+                fill: none;
+                stroke: #000000;
+                stroke-width: 1.4;
+                stroke-linecap: round;
+                stroke-linejoin: round;
+            }
+            .ihmpage-vfill {
+                fill: #9afb00;
+                stroke: #000000;
+                stroke-width: 0.6;
+            }
+            .ihmpage-vwater {
+                stroke: rgba(0, 0, 0, 0.25);
+                stroke-width: 1.4;
+            }
+        }
+
         .ihm-box {
             background-color: #ffffff;
             border-top: 4px solid #9afb00;
@@ -3594,6 +3641,127 @@ header {
             @include sm {
                 padding: 0px;
                 margin-top: 30px;
+            }
+        }
+    }
+
+    // ---------- vessel types (between the regulation band and the pain band) ----------
+    .ihmpage-vessels {
+        padding: 5% 0%;
+        background-color: #000000;
+        position: relative;
+        overflow: hidden;
+        @include xsm {
+            padding: 17% 0%;
+        }
+        @include sm {
+            padding: 17% 0%;
+        }
+        .ihmpage-vesselshead {
+            font-family: Poppins-Bold;
+            font-size: 44px;
+            color: #ffffff;
+            margin: 0px;
+            text-align: center;
+            margin-bottom: 14px;
+            @include xsm {
+                font-size: 34px;
+            }
+            @include sm {
+                font-size: 36px;
+            }
+        }
+        .ihmpage-vesselssub {
+            font-family: Poppins-Regular;
+            font-size: 18px;
+            color: #b5b5b5;
+            margin: 0px;
+            text-align: center;
+            margin-bottom: 50px;
+            @include xsm {
+                font-size: 16px;
+                margin-bottom: 30px;
+            }
+            @include sm {
+                font-size: 16px;
+                margin-bottom: 30px;
+            }
+        }
+        .ihmpage-vbox {
+            border: 1px solid #333333;
+            border-radius: 30px;
+            padding: 22px 22px 28px 22px;
+            height: 100%;
+            transition: border-color 0.3s ease, transform 0.3s ease;
+            &:hover {
+                border-color: #9afb00;
+                transform: translateY(-6px);
+            }
+            .ihmpage-vsvg {
+                display: block;
+                width: 100%;
+                height: auto;
+                margin-bottom: 16px;
+            }
+            .ihmpage-vhull {
+                fill: #141414;
+                stroke: #9afb00;
+                stroke-width: 1.6;
+                stroke-linejoin: round;
+            }
+            .ihmpage-vdeck {
+                stroke: #9afb00;
+                stroke-width: 1.6;
+            }
+            .ihmpage-vsuper,
+            .ihmpage-vfunnel {
+                fill: #141414;
+                stroke: #9afb00;
+                stroke-width: 1.4;
+            }
+            .ihmpage-vtank {
+                fill: #141414;
+                stroke: #9afb00;
+                stroke-width: 1.4;
+            }
+            .ihmpage-vline {
+                fill: none;
+                stroke: #9afb00;
+                stroke-width: 1.4;
+                stroke-linecap: round;
+                stroke-linejoin: round;
+            }
+            .ihmpage-vfill {
+                fill: rgba(154, 251, 0, 0.32);
+            }
+            .ihmpage-vwater {
+                stroke: rgba(154, 251, 0, 0.3);
+                stroke-width: 1.4;
+            }
+            .ihmpage-vname {
+                font-family: Poppins-Medium;
+                font-size: 19px;
+                color: #ffffff;
+                margin: 0px;
+                margin-bottom: 10px;
+                @include xsm {
+                    font-size: 18px;
+                }
+                @include sm {
+                    font-size: 18px;
+                }
+            }
+            .ihmpage-vsub {
+                font-family: Poppins-Regular;
+                font-size: 15px;
+                color: #b5b5b5;
+                margin: 0px;
+                @include xsm {
+                    font-size: 14px;
+                }
+                @include sm {
+                    font-size: 14px;
+                }
             }
         }
     }

@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { NavLink } from "react-router-dom";
+import { VesselArt, VESSELS } from "./common/VesselArt";
 
 const STEPS = [
     {
@@ -175,6 +176,29 @@ const IHM = () => {
                             </div>
                         </div>
                         <p className="ihmpage-note">Regulatory summary only. Scope, tonnage thresholds and survey timing depend on your flag, your class society and your trading pattern. Talk to us and we will walk through your fleet.</p>
+                    </div>
+                </div>
+
+                <div className="ihmpage-vessels">
+                    <span className="ihmpage-herogrid" aria-hidden="true"></span>
+                    <div className="container ihmpage-herobody">
+                        <div className="row justify-content-center">
+                            <div className="col-md-9">
+                                <h2 className="ihmpage-vesselshead" data-aos="fade-up" data-aos-duration="800" data-aos-delay="30">One inventory duty, whatever you operate</h2>
+                                <p className="ihmpage-vesselssub">The Convention draws its line at tonnage and flag, not at what you carry. If the vessel is in scope, Part I has to stay current for its whole operating life.</p>
+                            </div>
+                        </div>
+                        <div className="row gy-4">
+                            {VESSELS.map((v) => (
+                                <div className="col-md-6 col-lg-3" key={v.key}>
+                                    <div className="ihmpage-vbox" data-aos="fade-up" data-aos-duration="800" data-aos-delay="30">
+                                        <VesselArt v={v} />
+                                        <h3 className="ihmpage-vname">{v.name}</h3>
+                                        <p className="ihmpage-vsub">{v.sub}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </div>
 
