@@ -27,7 +27,7 @@ const Footer = () => {
                     </div>
                 </div>
                 <div className="footersecond-section">
-                    <p className="footercopy">© 2025 Enviguide.com</p>
+                    <p className="footercopy">© 2026 Enviguide.com</p>
                     <div className="privacysection">
                         <NavLink className="privacysectiontext" to={'/Privacy-Policy'}>Privacy Policy</NavLink>
                             <div className="privacysectionline"></div>
