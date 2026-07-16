@@ -48,7 +48,7 @@ const Header = () => {
                                 <NavLink className="nav-link" to={'/CCF-Calculator'} onClick={handleNavLinkClick}>CCF Calculator</NavLink>
                             </li>
                             <li className="nav-item">
-                                <NavLink className="nav-link ihm-navlink" to={'/IHM'} onClick={handleNavLinkClick}>IHM<span className="ihm-navbadge">New</span></NavLink>
+                                <NavLink className="nav-link ihm-navlink" to={'/IHMM'} onClick={handleNavLinkClick}>IHMM<span className="ihm-navbadge">New</span></NavLink>
                             </li>
                             {/* <li className="nav-item">
                                 <NavLink className="nav-link" to={'/Contact-Us'} onClick={handleNavLinkClick}>Contact Us</NavLink>

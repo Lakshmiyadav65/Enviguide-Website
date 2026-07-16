@@ -49,8 +49,8 @@ const PINS = [
 ];
 
 const PARTS = [
-    { n: "Part I", head: "Materials in the ship's structure and equipment", txt: "The part that has to be maintained for the whole operating life of the vessel, and the part that new purchases keep changing. This is where Enviguide IHM does its work." },
-    { n: "Part II", head: "Operationally generated wastes", txt: "Compiled ahead of recycling, alongside Part III. Enviguide IHM carries the structure for Parts II and III so the record is complete when the vessel reaches end of life." },
+    { n: "Part I", head: "Materials in the ship's structure and equipment", txt: "The part that has to be maintained for the whole operating life of the vessel, and the part that new purchases keep changing. This is where Enviguide IHMM does its work." },
+    { n: "Part II", head: "Operationally generated wastes", txt: "Compiled ahead of recycling, alongside Part III. Enviguide IHMM carries the structure for Parts II and III so the record is complete when the vessel reaches end of life." },
     { n: "Part III", head: "Stores", txt: "Consumables and stores held on board at the point of recycling. Also compiled at end of life, and also structured in the platform." },
 ];
 
@@ -98,7 +98,7 @@ const WHO = [
     { head: "Procurement teams", txt: "You already hold the purchase order data the inventory depends on. Here it does a second job." },
 ];
 
-const IHM = () => {
+const IHMM = () => {
     useEffect(() => {
         window.scrollTo(0, 0);
         AOS.init();
@@ -133,11 +133,11 @@ const IHM = () => {
                                 <p className="ihmpage-tag" data-aos="fade-up" data-aos-duration="800" data-aos-delay="30">
                                     <span className="ihmpage-tagdot" aria-hidden="true"></span>New from Enviguide
                                 </p>
-                                <h2 className="ihmpage-mainhead" data-aos="fade-up" data-aos-duration="800" data-aos-delay="30">IHM | Enviguide</h2>
+                                <h2 className="ihmpage-mainhead" data-aos="fade-up" data-aos-duration="800" data-aos-delay="30">IHMM | Enviguide</h2>
                                 <h3 className="ihmpage-subhead" data-aos="fade-up" data-aos-duration="800" data-aos-delay="30">Keep your Inventory of Hazardous Materials current, without chasing suppliers by hand.</h3>
-                                <p className="ihmpage-content">Enviguide IHM is compliance software for shipowners and ship managers. It turns the purchase orders you already raise into a maintained Inventory of Hazardous Materials, by collecting Material Declarations and Supplier's Declarations of Conformity from the vendors themselves.</p>
+                                <p className="ihmpage-content">Enviguide IHMM is compliance software for shipowners and ship managers. It turns the purchase orders you already raise into a maintained Inventory of Hazardous Materials, by collecting Material Declarations and Supplier's Declarations of Conformity from the vendors themselves.</p>
                                 <div className="ihmpage-section1bt">
-                                    <NavLink className="ihmpage-bt" to={'/Contact-Us'}>Talk to us about IHM</NavLink>
+                                    <NavLink className="ihmpage-bt" to={'/Contact-Us'}>Talk to us about IHMM</NavLink>
                                 </div>
                             </div>
                         </div>
@@ -223,7 +223,7 @@ const IHM = () => {
                             </div>
                             <div className="col-lg-6">
                                 <div className="ihmpage-cmp ihmpage-cmpgood" data-aos="fade-up" data-aos-duration="800" data-aos-delay="30">
-                                    <p className="ihmpage-cmphead">With Enviguide IHM</p>
+                                    <p className="ihmpage-cmphead">With Enviguide IHMM</p>
                                     <p className="ihmpage-cmprow">The purchase order you already raise is the input</p>
                                     <p className="ihmpage-cmprow">One request, split automatically into a private link per vendor</p>
                                     <p className="ihmpage-cmprow">Received against pending, per item, per document</p>
@@ -239,7 +239,7 @@ const IHM = () => {
                     <div className="container">
                         <div className="row justify-content-center">
                             <div className="col-md-8">
-                                <h2 className="ihmpage-section4head" data-aos="fade-up" data-aos-duration="800" data-aos-delay="30">How Enviguide IHM works</h2>
+                                <h2 className="ihmpage-section4head" data-aos="fade-up" data-aos-duration="800" data-aos-delay="30">How Enviguide IHMM works</h2>
                                 <p className="ihmpage-section4sub">Six steps, from the purchase order you already have to a hazard record you can evidence.</p>
                             </div>
                         </div>
@@ -421,7 +421,7 @@ const IHM = () => {
                                 <h2 className="ihmpage-section8head" data-aos="fade-up" data-aos-duration="800" data-aos-delay="30">Built on the same idea as the rest of Enviguide</h2>
                                 <p className="ihmpage-section8txt">Get the declaration out of the supplier's inbox and into a record you can evidence. It is the discipline we already apply to carbon data across the automotive value chain, pointed at a different regulation and a different fleet.</p>
                                 <div className="ihmpage-section8bt">
-                                    <NavLink className="ihmpage-bt" to={'/Contact-Us'}>Talk to us about IHM</NavLink>
+                                    <NavLink className="ihmpage-bt" to={'/Contact-Us'}>Talk to us about IHMM</NavLink>
                                     <NavLink className="ihmpage-bt ihmpage-bt2" to={'/Solutions'}>See our other solutions</NavLink>
                                 </div>
                             </div>
@@ -434,4 +434,4 @@ const IHM = () => {
     )
 }
 
-export default IHM;
+export default IHMM;

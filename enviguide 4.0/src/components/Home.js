@@ -216,14 +216,14 @@ const Home = () => {
                                 <div className="text-center">
                                     <p className="ihm-eyebrow" data-aos="fade-up" data-aos-duration="800" data-aos-delay="30">New from Enviguide</p>
                                 </div>
-                                <h2 className="ihm-mainhead" data-aos="fade-up" data-aos-duration="800" data-aos-delay="30">Enviguide IHM: Inventory of Hazardous Materials</h2>
+                                <h2 className="ihm-mainhead" data-aos="fade-up" data-aos-duration="800" data-aos-delay="30">Enviguide IHMM: Inventory of Hazardous Materials Management</h2>
                                 <p className="ihm-subhead">Compliance software for shipowners and ship managers.</p>
                             </div>
                         </div>
                         <div className="row justify-content-center">
                             <div className="col-md-10">
                                 <p className="ihm-problem" data-aos="fade-up" data-aos-duration="800" data-aos-delay="30">Under the Hong Kong Convention and the EU Ship Recycling Regulation, every vessel must carry a certified Inventory of Hazardous Materials and keep it current for its entire operating life. In practice, every spare part a ship buys needs a Material Declaration and a Supplier's Declaration of Conformity from that exact vendor. Today that chase runs by hand, over email, across thousands of purchase order lines and hundreds of suppliers, and it quietly falls behind. When it does, the vessel's Statement of Compliance lapses, and a ship without a valid certificate can be held at port.</p>
-                                <p className="ihm-problem ihm-problem2" data-aos="fade-up" data-aos-duration="800" data-aos-delay="30">Enviguide IHM closes that gap by making the supplier the one who fills it in.</p>
+                                <p className="ihm-problem ihm-problem2" data-aos="fade-up" data-aos-duration="800" data-aos-delay="30">Enviguide IHMM closes that gap by making the supplier the one who fills it in.</p>
                             </div>
                         </div>
                         <div className="row justify-content-center ihm-fleet">
@@ -265,7 +265,7 @@ const Home = () => {
                             </div>
                         </div>
                         <div className="text-center">
-                            <NavLink className="ihm-bt" to={'/Contact-Us'}>Talk to us about IHM</NavLink>
+                            <NavLink className="ihm-bt" to={'/Contact-Us'}>Talk to us about IHMM</NavLink>
                             <NavLink className="ihm-fork" to={'/CCF-Calculator'}>Not a ship operator? Calculate your carbon footprint</NavLink>
                         </div>
                     </div>

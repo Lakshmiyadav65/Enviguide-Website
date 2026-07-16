@@ -4,7 +4,7 @@ import Home from './components/Home';
 import { Route, Routes } from 'react-router-dom';
 import AboutUs from './components/AboutUs';
 import Solutions from './components/Solutions';
-import IHM from './components/IHM';
+import IHMM from './components/IHMM';
 import Blog from './components/Blog';
 import ContactUs from './components/ContactUs';
 import PrivacyPolicy from './components/PrivacyPolicy';
@@ -73,7 +73,7 @@ function App() {
           <Route path='/home' element={<Home />} />
           <Route path='/About-us' element={<AboutUs />} />
           <Route path='/Solutions' element={<Solutions />} />
-          <Route path='/IHM' element={<IHM />} />
+          <Route path='/IHMM' element={<IHMM />} />
           <Route path='/Blog' element={<Blog />} />
           <Route path='/CCF-Calculator' element={<CCFCalculator />} />
           <Route path='/CCF-Calculator/landing' element={<LandingPage />} />
