@@ -3578,9 +3578,9 @@ header {
         }
         .ihmpage-regbox {
             background-color: #f4f4f4;
-            border-radius: 30px;
+            border-radius: 24px;
             border-top: 4px solid #9afb00;
-            padding: 30px 26px;
+            padding: 24px 22px;
             height: 100%;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             &:hover {
@@ -3590,32 +3590,33 @@ header {
             .ihmpage-regboxtag {
                 display: table;
                 font-family: Poppins-Medium;
-                font-size: 12px;
+                font-size: 11px;
                 letter-spacing: 1px;
                 text-transform: uppercase;
                 color: #000000;
                 background-color: #9afb00;
                 border-radius: 100px;
-                padding: 3px 12px;
+                padding: 3px 11px;
                 margin: 0px;
-                margin-bottom: 16px;
+                margin-bottom: 12px;
             }
             .ihmpage-regboxhead {
                 font-family: Poppins-Bold;
-                font-size: 24px;
+                font-size: 21px;
                 color: #000000;
                 margin: 0px;
-                margin-bottom: 12px;
+                margin-bottom: 10px;
                 @include xsm {
-                    font-size: 22px;
+                    font-size: 20px;
                 }
                 @include sm {
-                    font-size: 22px;
+                    font-size: 20px;
                 }
             }
             .ihmpage-regboxtxt {
                 font-family: Poppins-Regular;
-                font-size: 16px;
+                font-size: 15px;
+                line-height: 1.55;
                 color: #404040;
                 margin: 0px;
                 @include xsm {

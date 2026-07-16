@@ -157,21 +157,21 @@ const IHMM = () => {
                                 <div className="ihmpage-regbox" data-aos="fade-up" data-aos-duration="800" data-aos-delay="30">
                                     <p className="ihmpage-regboxtag">In force</p>
                                     <h3 className="ihmpage-regboxhead">Hong Kong Convention</h3>
-                                    <p className="ihmpage-regboxtxt">In force since 26 June 2025, for ships of 500 GT and above flying the flag of a Party. Ships that trade only in their own flag state's waters are out of scope, and ships flagged in non Parties are reached indirectly, through no more favourable treatment in the ports of Parties. Existing ships need their International Certificate on Inventory of Hazardous Materials by 26 June 2030 at the latest, but the date that actually binds you is your own first renewal survey on or after 26 June 2025.</p>
+                                    <p className="ihmpage-regboxtxt">In force since 26 June 2025, for ships of 500 GT and above under a Party flag. Existing ships need their certificate by 26 June 2030, but the date that really binds is your own first renewal survey on or after 26 June 2025.</p>
                                 </div>
                             </div>
                             <div className="col-md-6 col-lg-4">
                                 <div className="ihmpage-regbox" data-aos="fade-up" data-aos-duration="800" data-aos-delay="30">
                                     <p className="ihmpage-regboxtag">EU</p>
                                     <h3 className="ihmpage-regboxhead">EU Ship Recycling Regulation</h3>
-                                    <p className="ihmpage-regboxtxt">Regulation (EU) No 1257/2013 has applied since 31 December 2020 to existing EU flagged ships of 500 GT and above, and to non EU flagged ships of that size calling at an EU port or anchorage, which need an inventory and a Statement of Compliance. Article 5(6) is the one to read: Part I must be properly maintained and updated throughout the operational life of the ship. For third country flagged ships the equivalent duty sits in Article 12(4).</p>
+                                    <p className="ihmpage-regboxtxt">Regulation (EU) No 1257/2013, applying since 31 December 2020 to EU flagged ships of 500 GT and above, and to non EU flagged ships calling at an EU port. Article 5(6) is the one to read: Part I must stay maintained for the ship's operational life.</p>
                                 </div>
                             </div>
                             <div className="col-md-6 col-lg-4">
                                 <div className="ihmpage-regbox" data-aos="fade-up" data-aos-duration="800" data-aos-delay="30">
                                     <p className="ihmpage-regboxtag">Straight answer</p>
-                                    <h3 className="ihmpage-regboxhead">What Port State Control can actually do</h3>
-                                    <p className="ihmpage-regboxtxt">Being behind on updates is not, by itself, a detainable deficiency. EMSA guidance says it is to be rectified at the next survey. What is detainable is a certificate that is missing, invalid or incomplete, or an inventory that is not verified or not specific to your ship. So the real risk is not tomorrow's inspection. It is that the drift is invisible until your renewal survey, and then it is a scramble.</p>
+                                    <h3 className="ihmpage-regboxhead">Port State Control</h3>
+                                    <p className="ihmpage-regboxtxt">Being behind on updates is not, by itself, a detainable deficiency. EMSA says rectify it at the next survey. A certificate that is missing, invalid or unverified is detainable. The real risk is that drift stays invisible until your renewal survey.</p>
                                 </div>
                             </div>
                         </div>
